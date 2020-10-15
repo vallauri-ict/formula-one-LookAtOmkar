@@ -72,15 +72,16 @@ namespace FormulaOneConsole
             {
                 ExecuteSqlScripts(sql[i]);
             }
+            Console.WriteLine("\nRESET DB OK\n\n");
         }
 
-        static void ExecuteDropTable(string sqlScriptName)
+        private static void ExecuteDropTable(string sqlScriptName)
         {
             SqlConnection con = new SqlConnection(CONNECTION_STRING);
             SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + sqlScriptName+";", con);
-            con.Open();            
             try
             {
+                con.Open();
                 cmd.ExecuteNonQuery();
                 Console.WriteLine("Table "+ sqlScriptName +" is Dropped ");
             }
@@ -118,7 +119,7 @@ namespace FormulaOneConsole
                 }
                 if(nerr ==0)
                 {
-                    Console.WriteLine("Script Executed Without Errors");
+                    Console.WriteLine("Script "+ sqlScriptName +" Executed Without Errors");
                 }
             }
 
