@@ -9,7 +9,6 @@ namespace FormulaOneConsole
         /// <summary>
         
         /// </summary>
-
         public const string WORKINGPATH = @"C:\data\FormulaOne\";  /// Creare una cartella su C:\data--> FormulaOne--> countries.sql
         public const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + WORKINGPATH + @"FormulaOne.mdf;Integrated Security =True";
         static void Main(string[] args)
@@ -19,27 +18,34 @@ namespace FormulaOneConsole
             do
             {
                 Console.WriteLine("\n*** FORMULA ONE  BATCH SCRIPTS ***\n");
-                Console.WriteLine("1 - Create Countries");
-                Console.WriteLine("2 - Create Teams");
-                Console.WriteLine("3 - Create Drivers");
+                Console.WriteLine("1 -  Create Countries");
+                Console.WriteLine("2 -  Create Teams");
+                Console.WriteLine("3 -  Create Drivers");
                 Console.WriteLine("----------------------------------");
-                Console.WriteLine("X EXIT\n");
+                Console.WriteLine("r -  RESET DB");
+                Console.WriteLine("----------------------------------");
+                Console.WriteLine("X -  EXIT\n");
                 scelta = Console.ReadKey(true).KeyChar;
                 switch(scelta)
                 {
                     case '1':
                         {
-                            ExecuteSqlScripts("Countries.sql");
+                            ExecuteSqlScripts("countries.sql");
                             break;
                         }
                     case '2':
                         {
-                            ExecuteSqlScripts("Teams.sql");
+                            ExecuteSqlScripts("teams.sql");
                             break;
                         }
                     case '3':
                         {
-                            ExecuteSqlScripts("Drivers.sql");
+                            ExecuteSqlScripts("drivers.sql");
+                            break;
+                        }
+                    case 'r':
+                        {
+                            ResetDB();
                             break;
                         }
                     default:
@@ -52,6 +58,38 @@ namespace FormulaOneConsole
 
         }
 
+        private static void ResetDB()
+        {
+            //DROP TABLE FUNCTION
+            string[] sql = { "drivers.sql", "teams.sql", "countries.sql" };
+            string[] database = { "Driver", "Team", "Country"};
+            for (int i = 0; i < database.Length; i++)
+            {
+                ExecuteDropTable(database[i]);
+            }
+            //RECREATE TABLE FUNCTION
+            for (int i = 0; i < sql.Length; i++)
+            {
+                ExecuteSqlScripts(sql[i]);
+            }
+        }
+
+        static void ExecuteDropTable(string sqlScriptName)
+        {
+            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            SqlCommand cmd = new SqlCommand("DROP TABLE IF EXISTS " + sqlScriptName+";", con);
+            con.Open();            
+            try
+            {
+                cmd.ExecuteNonQuery();
+                Console.WriteLine("Table "+ sqlScriptName +" is Dropped ");
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("ERROR : " + ex.Message + " -->" + ex.Errors);
+            }
+            con.Close();
+        }
         static void ExecuteSqlScripts(string sqlScriptName)
         {
             var fileContent = File.ReadAllText(WORKINGPATH + sqlScriptName);
