@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Data;
 using System.Data.SqlClient;
+using System.Threading;
+
 
 namespace FormulaOneConsole
 {
@@ -13,6 +16,8 @@ namespace FormulaOneConsole
         public const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + WORKINGPATH + @"FormulaOne.mdf;Integrated Security =True";
         private static string DB_NAME = @"C:\USERS\RATHORE\DESKTOP\SCUOLA\CSHARP-CODE\BACKUPMDFDB\BACKUPMDFDB\BIN\DEBUG\PROVA.MDF";
         private static string DB_PATH = System.Environment.CurrentDirectory;
+        public static string[] sql = { "drivers.sql", "teams.sql", "countries.sql", "circuits.sql", "races.sql" };
+        public static string[] database = { "Driver", "Team", "Country", "Circuit", "Race" };
 
         static void Main(string[] args)
         {
@@ -24,12 +29,12 @@ namespace FormulaOneConsole
                 Console.WriteLine("1 -  Create Countries");
                 Console.WriteLine("2 -  Create Teams");
                 Console.WriteLine("3 -  Create Drivers");
-                Console.WriteLine("4 -  Create Constaints");
-                Console.WriteLine("5 -  Create Circuits");
-                Console.WriteLine("6 -  Create GPS");
+                Console.WriteLine("4 -  Create Circuits");
+                Console.WriteLine("5 -  Create Races");
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("R -  RESET DB");
                 Console.WriteLine("B -  BACKUP");
+                Console.WriteLine("S - SHOW TABLE");
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("X -  EXIT\n");
                 scelta = Console.ReadKey(true).KeyChar;
@@ -37,22 +42,53 @@ namespace FormulaOneConsole
                 {
                     case '1':
                         {
+                            wait();
                             ExecuteSqlScripts("countries.sql");
                             break;
                         }
                     case '2':
                         {
+                            wait();
                             ExecuteSqlScripts("teams.sql");
                             break;
                         }
                     case '3':
                         {
+                            wait();
                             ExecuteSqlScripts("drivers.sql");
                             break;
                         }
-                    case 'R':
+                    case '4':
                         {
+                            wait();
+                            ExecuteSqlScripts("circuits.sql");
+                            break;
+                        }
+                    case '5':
+                        {
+                            wait();
+                            ExecuteSqlScripts("races.sql");
+                            break;
+                        }
+                    case 'R':
+                    case 'r':
+                        {
+                            wait();
                             ResetDB();
+                            break;
+                        }
+                    case 'B':
+                    case 'b':
+                        {
+                            wait(); 
+                            Backup();
+                            break;
+                        }
+                    case 'S':
+                    case 's':
+                        {
+                            wait();
+                            ShowTable();
                             break;
                         }
                     default:
@@ -65,11 +101,32 @@ namespace FormulaOneConsole
 
         }
 
+        private static void ShowTable()
+        {
+            string key;
+            Console.Write("Choose a table : ");
+            for(int i= 0 ;i<database.Length;i++)
+            {
+                Console.Write(" ["+database[i]+"] ");
+            }
+            Console.Write(" [ALL]");
+
+            key = Console.ReadKey(true).ToString();
+            if(key.ToUpper()!="ALL")
+            {
+                //esegui query(mostra tabella selezionata).
+            }
+            else
+            {
+                //esegui query(mostra tutte le tabelle presenti nel database).
+            }
+            
+        } 
+
+
         private static void ResetDB()
         {
             //DROP TABLE FUNCTION
-            string[] sql = { "drivers.sql", "teams.sql", "countries.sql" };
-            string[] database = { "Driver", "Team", "Country"};
             for (int i = 0; i < database.Length; i++)
             {
                 ExecuteDropTable(database[i]);
@@ -82,6 +139,57 @@ namespace FormulaOneConsole
             Console.WriteLine("\nRESET DB OK\n\n");
         }
 
+        private static void Backup()
+        {
+            try
+            {
+                using (SqlConnection dbConn = new SqlConnection())
+                {
+                    dbConn.ConnectionString = CONNECTION_STRING;
+                    dbConn.Open();
+
+                    using (SqlCommand multiuser_rollback_dbcomm = new SqlCommand())
+                    {
+                        multiuser_rollback_dbcomm.Connection = dbConn;
+                        multiuser_rollback_dbcomm.CommandText = @"ALTER DATABASE [" + DB_NAME + "] SET MULTI_USER WITH ROLLBACK IMMEDIATE";
+
+                        multiuser_rollback_dbcomm.ExecuteNonQuery();
+                    }
+                    dbConn.Close();
+                }
+
+                SqlConnection.ClearAllPools();
+
+                using (SqlConnection backupConn = new SqlConnection())
+                {
+                    backupConn.ConnectionString = CONNECTION_STRING;
+                    backupConn.Open();
+
+                    using (SqlCommand backupcomm = new SqlCommand())
+                    {
+                        backupcomm.Connection = backupConn;
+                        backupcomm.CommandText = @"BACKUP DATABASE [" + DB_NAME + "] TO DISK='" + DB_PATH + @"\prova.bak'";
+                        backupcomm.ExecuteNonQuery();
+                    }
+                    backupConn.Close();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+        private static void wait()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write(".");
+                Thread.Sleep(500);
+            }
+        }
         private static void ExecuteDropTable(string sqlScriptName)
         {
             SqlConnection con = new SqlConnection(CONNECTION_STRING);
@@ -124,12 +232,11 @@ namespace FormulaOneConsole
                     Console.WriteLine("Error during Execution : Message"+ err.Message);
                     nerr++;
                 }
-                if(nerr ==0)
-                {
-                    Console.WriteLine("Script "+ sqlScriptName +" Executed Without Errors");
-                }
             }
-
+            if (nerr == 0)
+            {
+                Console.WriteLine("Script " + sqlScriptName + " Executed Without Errors");
+            }
         }
     }
 }
