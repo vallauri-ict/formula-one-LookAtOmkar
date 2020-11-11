@@ -11,6 +11,9 @@ namespace FormulaOneConsole
         /// </summary>
         public const string WORKINGPATH = @"C:\data\FormulaOne\";  /// Creare una cartella su C:\data--> FormulaOne--> countries.sql
         public const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + WORKINGPATH + @"FormulaOne.mdf;Integrated Security =True";
+        private static string DB_NAME = @"C:\USERS\RATHORE\DESKTOP\SCUOLA\CSHARP-CODE\BACKUPMDFDB\BACKUPMDFDB\BIN\DEBUG\PROVA.MDF";
+        private static string DB_PATH = System.Environment.CurrentDirectory;
+
         static void Main(string[] args)
         {
            Console.WriteLine("*** FORMULA ONE - BATCH OPERATIONS ***");
@@ -21,8 +24,12 @@ namespace FormulaOneConsole
                 Console.WriteLine("1 -  Create Countries");
                 Console.WriteLine("2 -  Create Teams");
                 Console.WriteLine("3 -  Create Drivers");
+                Console.WriteLine("4 -  Create Constaints");
+                Console.WriteLine("5 -  Create Circuits");
+                Console.WriteLine("6 -  Create GPS");
                 Console.WriteLine("----------------------------------");
-                Console.WriteLine("r -  RESET DB");
+                Console.WriteLine("R -  RESET DB");
+                Console.WriteLine("B -  BACKUP");
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("X -  EXIT\n");
                 scelta = Console.ReadKey(true).KeyChar;
@@ -43,7 +50,7 @@ namespace FormulaOneConsole
                             ExecuteSqlScripts("drivers.sql");
                             break;
                         }
-                    case 'r':
+                    case 'R':
                         {
                             ResetDB();
                             break;
