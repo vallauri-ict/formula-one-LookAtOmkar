@@ -189,6 +189,7 @@ namespace FormulaOneConsole
                 Console.Write(".");
                 Thread.Sleep(500);
             }
+           Console.Write("\n");
         }
         private static void ExecuteDropTable(string sqlScriptName)
         {
