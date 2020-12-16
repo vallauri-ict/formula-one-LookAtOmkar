@@ -207,6 +207,9 @@ namespace FormulaOneConsole
             }
             con.Close();
         }
+
+       
+
         static void ExecuteSqlScripts(string sqlScriptName)
         {
             var fileContent = File.ReadAllText(WORKINGPATH + sqlScriptName);
