@@ -12,15 +12,23 @@ namespace FormulaOneWebForm
     {
         public const string WORKINGPATH = @"C:\data\FormulaOne\";
         private const string CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + WORKINGPATH + "FormulaOne.mdf;Integrated Security=True;Connect Timeout=30";
-
+        private string database;
+        public  Tools dbTools = new Tools(CONNECTION_STRING);
         protected void Page_Load(object sender, EventArgs e)
         {
-            Tools dbTools = new Tools(CONNECTION_STRING);
             if (!Page.IsPostBack)
             {
-                cmbCountries.DataSource = dbTools.GetCountries();
-                cmbCountries.DataBind();
+                //FARE SHOWTABLE--> CARICARE I DATI RICEVUTI SU UNA COMBOBOX
+                DropDownList.DataSource = dbTools.ShowTable();
+                DropDownList.DataBind();
             }
+        }
+
+        protected void cmbDatabase_changed(object sender, EventArgs e)
+        {
+            database = DropDownList.Text;
+            gridViewData.DataSource = dbTools.GetDriversDataTable(DropDownList.Text);
+            gridViewData.DataBind();
         }
     }
 }

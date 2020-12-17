@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.data;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -12,6 +12,7 @@ namespace FormulaOneDLL
     {
 
         private string connection_string;
+        private DataTable datatable;
 
         public Tools(string cONNECTION_STRING)
         {
@@ -28,7 +29,7 @@ namespace FormulaOneDLL
                 dbConn.ConnectionString = CONNECTION_STRING;
                 Console.WriteLine("\n Query data example: ");
                 Console.WriteLine("========================================");
-                string sqlcommand = "SELEC * FROM country";
+                string sqlcommand = "SELECT * FROM country";
                 using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
                 {
                     dbConn.Open();
@@ -46,6 +47,39 @@ namespace FormulaOneDLL
             }
 
             return retVal;
+        }
+
+        public DataTable GetDriversDataTable(string table)
+        {
+            datatable = new DataTable(); 
+            SqlConnection con = new SqlConnection(CONNECTION_STRING);
+            string sql = "SELECT * FROM "+table;
+            SqlCommand cmd = new SqlCommand(sql,con);
+            con.Open();
+
+            // create data adapter
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            // this will query your database and return the result to your datatable
+            da.Fill(datatable);
+            con.Close();
+            da.Dispose();
+
+            return datatable;
+        }
+
+        public List<string> ShowTable()
+        {
+            using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
+            {
+                con.Open();
+                DataTable schema = con.GetSchema("Tables");
+                List<string> TableNames = new List<string>();
+                foreach (DataRow row in schema.Rows)
+                {
+                    TableNames.Add(row[2].ToString());
+                }
+                return TableNames;
+            }
         }
     }
 }

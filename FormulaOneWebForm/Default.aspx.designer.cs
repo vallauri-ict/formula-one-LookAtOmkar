@@ -24,12 +24,21 @@ namespace FormulaOneWebForm
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controllo cmbCountries.
+        /// Controllo DropDownList.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox cmbCountries;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList;
+
+        /// <summary>
+        /// Controllo gridViewData.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridViewData;
     }
 }
