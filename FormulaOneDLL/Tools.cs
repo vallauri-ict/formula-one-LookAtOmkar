@@ -49,7 +49,7 @@ namespace FormulaOneDLL
             return retVal;
         }
 
-        public DataTable GetDriversDataTable(string table)
+        public DataTable GetDataTable(string table)
         {
             datatable = new DataTable(); 
             SqlConnection con = new SqlConnection(CONNECTION_STRING);
