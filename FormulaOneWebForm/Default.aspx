@@ -9,15 +9,17 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <nav style="background-color:red; height: 57px;" class="row">
+          <img  src="F1_LOGO.jpg" style="width: 209px; height: 58px; margin-left: 0px; margin-bottom: 0px;"/>   
+        </nav>
         <div>
-            <asp:Label runat="server" Text="DATABASE" />
             <br />
-            <asp:DropDownList ID="DropDownList" runat="server" OnSelectedIndexChanged="cmbDatabase_changed" AutoPostBack="true"></asp:DropDownList>
+            <asp:Label runat="server" Text="Scegli una tabella da visualizzare" />
+            <br />
         </div>
-        <div>
 
-        </div>
         <div>
+            <asp:DropDownList ID="DropDownList" runat="server" OnSelectedIndexChanged="cmbDatabase_changed" AutoPostBack="true" Height="16px" Width="108px"></asp:DropDownList>
             <asp:GridView ID="gridViewData" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
                 <AlternatingRowStyle BackColor="White" />
                 <EditRowStyle BackColor="#2461BF" />
