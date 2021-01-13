@@ -24,7 +24,7 @@ namespace FormulaOneWindowsForm
         private void Form1_Load(object sender, EventArgs e)
         {
             cmbTable.DataSource = tool.GetTables();
-            dgvTable.AutoSize=true;
+            dgvTable.AutoResizeColumns();
             //Pic.Visible = false;
         }
 
@@ -32,9 +32,8 @@ namespace FormulaOneWindowsForm
         {
             string table = cmbTable.Text;
             dgvTable.ClearSelection();
-            dgvTable.DataSource = ""; //refresh
+            dgvTable.AutoResizeColumns();
             dgvTable.DataSource = tool.GetDataTable(table);
-            dgvTable.AutoSize = true;
         }
 
         private void dgvTable_CellContentClick(object sender, DataGridViewCellEventArgs e)

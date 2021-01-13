@@ -1,14 +1,14 @@
 CREATE TABLE [Circuit] (
     [id] char(5) PRIMARY KEY,
-    [name] varchar(255),
-    [country] char(2),
-    [length] int,
-    [laps_number] int,
-    [turns_number] int,
-    [first_race_year] char(4),
-    [fastest_lap] varchar(100),
-    [full_image] image,
-    [small_image] image
+    [name] varchar(255) NOT NULL,
+    [country] char(2) NOT NULL,
+    [length] int NOT NULL,
+    [laps_number] int NOT NULL,
+    [turns_number] int NOT NULL,
+    [first_race_year] char(4) NOT NULL,
+    [fastest_lap] varchar(100) NOT NULL,
+    [full_image] varchar(255) NOT NULL,
+    [small_image] varchar(200) NOT NULL
 );
 
 INSERT INTO

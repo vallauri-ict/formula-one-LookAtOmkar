@@ -52,7 +52,7 @@
             this.dgvTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTable.Location = new System.Drawing.Point(12, 157);
             this.dgvTable.Name = "dgvTable";
-            this.dgvTable.Size = new System.Drawing.Size(891, 241);
+            this.dgvTable.Size = new System.Drawing.Size(891, 306);
             this.dgvTable.TabIndex = 2;
             this.dgvTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTable_CellClick);
             this.dgvTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTable_CellContentClick);
