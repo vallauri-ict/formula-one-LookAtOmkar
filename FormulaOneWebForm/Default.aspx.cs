@@ -20,7 +20,7 @@ namespace FormulaOneWebForm
             {
                 //FARE SHOWTABLE--> CARICARE I DATI RICEVUTI SU UNA COMBOBOX
                 //dbTools.ShowTable() = mi permette di avere tutte le tabelle del mio database FormulaOne.mdf
-                DropDownList.DataSource = dbTools.ShowTable();
+                DropDownList.DataSource = dbTools.GetTables();
                 DropDownList.DataBind();
             }
         }
@@ -28,7 +28,7 @@ namespace FormulaOneWebForm
         protected void cmbDatabase_changed(object sender, EventArgs e)
         {
             database = DropDownList.Text;
-            gridViewData.DataSource = dbTools.GetDataTable(DropDownList.Text);
+            gridViewData.DataSource = dbTools.GetDataTable(database);
             gridViewData.DataBind();
         }
     }
