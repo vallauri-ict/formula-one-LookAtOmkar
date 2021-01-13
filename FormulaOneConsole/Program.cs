@@ -30,19 +30,20 @@ namespace FormulaOneConsole
             char scelta;
             do
             {
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\n*** FORMULA ONE  BATCH SCRIPTS ***\n");
                 Console.WriteLine("1 -  Create Countries");
                 Console.WriteLine("2 -  Create Teams");
                 Console.WriteLine("3 -  Create Drivers");
                 Console.WriteLine("4 -  Create Circuits");
                 Console.WriteLine("5 -  Create Races");
-                Console.WriteLine("6 - Create Constraints");
-                Console.WriteLine("7 - Delete Constraints");
+                Console.WriteLine("6 -  Create Constraints");
+                Console.WriteLine("7 -  Delete Constraints");
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("R -  RESET DB");
-                Console.WriteLine("D - DROP TABLE");
+                Console.WriteLine("D -  DROP TABLE");
                 Console.WriteLine("B -  BACKUP");
-                Console.WriteLine("S - SHOW TABLE");
+                Console.WriteLine("S -  SHOW TABLE");
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("X -  EXIT\n");
                 scelta = Console.ReadKey(true).KeyChar;
@@ -109,7 +110,7 @@ namespace FormulaOneConsole
                             }
                             Console.Write("\n");
                             Console.WriteLine("Choose one table to drop: ");
-                            string table_chosen = Console.ReadKey(true).ToString();  
+                            string table_chosen = Console.ReadLine().ToString();  
                             tool.ExecuteDropTable(table_chosen+".sql");
                             break;
                         }
@@ -147,7 +148,7 @@ namespace FormulaOneConsole
             }
             Console.Write("[ALL]");
 
-            key = Console.ReadKey(true).ToString();
+            key = Console.ReadLine().ToString();
             if(key.ToUpper()!="ALL")
             {
                 //esegui query(mostra tabella selezionata).
@@ -156,13 +157,14 @@ namespace FormulaOneConsole
                 dataTable = tool.GetDataTable(key);
                 foreach(DataRow datarow in dataTable.Rows)
                 {
-                    Console.WriteLine("_________________________________________________________________________________________________________________________");
+                    Console.WriteLine("_____________________________________________________________________________________________");
                     foreach(var item in datarow.ItemArray)
                     {
                         Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.WriteLine(item);
+                        Console.Write(item);
                         Console.Write(" | ");
                     }
+                    Console.Write("\n");
                 }
             }
             else
@@ -177,13 +179,14 @@ namespace FormulaOneConsole
                     Console.WriteLine("==========="+table+ "===========");
                     foreach(DataRow datarow in datatable.Rows)
                     {
-                        Console.WriteLine("________________________________________________________________________________________________________________________");
+                        Console.WriteLine("________________________________________________________________________________________");
                         foreach(var item in datarow.ItemArray)
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine(item);
+                            Console.Write(item);
                             Console.Write(" | ");
                         }
+                        Console.Write("\n");
                     }
 
                 }
