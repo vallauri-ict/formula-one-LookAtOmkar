@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsForms.Properties
+namespace FormulaOneWindowsForm.Properties
 {
 
 
