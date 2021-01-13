@@ -15,3 +15,9 @@
 ![F O](https://user-images.githubusercontent.com/61886825/103925089-4e9de380-5117-11eb-95e2-02ad8c398795.PNG)
 
 **This is our WebPage in develop. There is a title of the project, then we have a ComboBox to select a Table, that are present in our Database,to visualize it on the Page, as you can see.** 
+
+
+![winform](https://user-images.githubusercontent.com/61886825/104520145-ea898c80-55fa-11eb-9051-28b3bc1dc42b.PNG)
+
+**This is our Windows Form in develop. There is an option to select a table, to visualize in this DataGridView, as you can see. This is not done yet,  there are lots of stuff to do dealing with the database,images, details.... This is just a good portion to what we have done till now**
+
