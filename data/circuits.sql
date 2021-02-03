@@ -1,5 +1,5 @@
-CREATE TABLE [Circuit] (
-    [id] char(5) PRIMARY KEY,
+CREATE TABLE [dbo].[Circuit] (
+    [circuitCode] char(5) PRIMARY KEY,
     [name] varchar(255) NOT NULL,
     [country] char(2) NOT NULL,
     [length] int NOT NULL,

@@ -1,8 +1,8 @@
-ALTER TABLE[Race] ADD CONSTRAINT[Fk_Circuit_Race] FOREIGN KEY([circuit_id]) REFERENCES[Circuit]([id]);
-ALTER TABLE[Circuit] ADD CONSTRAINT[Fk_Circuit_Country] FOREIGN KEY([country]) REFERENCES[Country]([countryCode]);
-ALTER TABLE[Team] ADD CONSTRAINT[Fk_Team_Country] FOREIGN KEY([nationCode]) REFERENCES[Country]([countryCode]);
-ALTER TABLE[Driver] ADD CONSTRAINT[Fk_Driver_Country] FOREIGN KEY([countryCode]) REFERENCES[Country]([countryCode]);
-ALTER TABLE[Driver] ADD CONSTRAINT[Fk_Driver_Team] FOREIGN KEY([teamCode]) REFERENCES[Team]([teamCode]);
+ALTER TABLE[dbo].[Race] WITH CHECK ADD CONSTRAINT[Race_Circuit] FOREIGN KEY([circuit_id]) REFERENCES[dbo].[Circuit]([circuitCode]);
+ALTER TABLE[dbo].[Circuit] WITH CHECK ADD CONSTRAINT[Circuit_Country] FOREIGN KEY([country]) REFERENCES[dbo].[Country]([countryCode]);
+ALTER TABLE[dbo].[Team] WITH CHECK ADD CONSTRAINT[Team_Country] FOREIGN KEY([nationCode]) REFERENCES[dbo].[Country]([countryCode]);
+ALTER TABLE[dbo].[Driver] WITH CHECK ADD CONSTRAINT[Driver_Country] FOREIGN KEY([countryCode]) REFERENCES[dbo].[Country]([countryCode]);
+ALTER TABLE[dbo].[Driver] WITH CHECK ADD CONSTRAINT[Driver_Team] FOREIGN KEY([teamCode]) REFERENCES[dbo].[Team]([teamCode]);
 
 
 
