@@ -20,6 +20,11 @@ namespace FormulaOneDLL
            CONNECTION_STRING = cONNECTION_STRING;
         }
 
+        public Tools()
+        {
+            CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\data\FormulaOne\FormulaOne.mdf;Integrated Security =True";
+        }
+
         public string CONNECTION_STRING { get => connection_string; set => connection_string = value; }
 
         public List<string> GetCountries()
@@ -38,10 +43,10 @@ namespace FormulaOneDLL
                     {
                         while (reader.Read())
                         {
-                            string IsCode = reader.GetString(0);
+                            string IsoCode = reader.GetString(0);
                             string descr = reader.GetString(1);
-                            Console.WriteLine("{0} {1}", IsCode, descr);
-                            retVal.Add(IsCode + " - " + descr);
+                            Console.WriteLine("{0} {1}", IsoCode, descr);
+                            retVal.Add(IsoCode + " - " + descr);
                         }
                     }
                 }
@@ -49,6 +54,61 @@ namespace FormulaOneDLL
 
             return retVal;
         }
+
+        public List<Country> GetCountriesObject()
+        {
+            List<Country> retVal = new List<Country>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM country";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string IsoCode = reader.GetString(0);
+                            string descr = reader.GetString(1);
+                            Console.WriteLine("{0} {1}", IsoCode, descr);
+                            retVal.Add(new Country(IsoCode,descr));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+
+        public List<Country> GetCountry(string isoCode) //restituisce un solo oggetto
+        {
+            List<Country> retVal = new List<Country>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM country WHERE countryCode ='"+isoCode+"';";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string IsoCode = reader.GetString(0);
+                            string descr = reader.GetString(1);
+                            retVal.Add(new Country(IsoCode, descr));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+
+
 
         public DataTable GetDataTable(string table)
         {
