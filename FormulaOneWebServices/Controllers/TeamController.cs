@@ -4,40 +4,34 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using FormulaOneDLL;
 
-
-namespace FormulaOneWebServices
+namespace FormulaOneWebServices.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountryController : ControllerBase
+    public class TeamController : ControllerBase
     {
-
-        // GET: api/Country
+        // GET: api/Team
         [HttpGet]
-        public IEnumerable<Country> Get()
+        public IEnumerable<string> Get()
         {
-            Tools db = new Tools();
-            return db.GetCountriesObject();
+            return new string[] { "value1", "value2" };
         }
 
-        // GET: api/Country/it
-        [HttpGet("{isoCode}", Name = "Get")]
-        public List<Country> Get(string isoCode)
+        // GET: api/Team/5
+        [HttpGet("{id}", Name = "Get")]
+        public string Get(int id)
         {
-            Tools db = new Tools();
-            return db.GetCountry(isoCode);
+            return "value";
         }
 
-        // POST: api/Country
+        // POST: api/Team
         [HttpPost]
         public void Post([FromBody] string value)
         {
-
         }
 
-        // PUT: api/Country/5
+        // PUT: api/Team/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
