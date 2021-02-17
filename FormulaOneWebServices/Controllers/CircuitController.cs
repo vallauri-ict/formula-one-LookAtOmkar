@@ -10,31 +10,31 @@ namespace FormulaOneWebServices.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TeamController : ControllerBase
+    public class CircuitController : ControllerBase
     {
-        // GET: api/Team
+        // GET: api/Circuit
         [HttpGet]
-        public IEnumerable<Team> Get()
+        public IEnumerable<Circuit> Get()
         {
             Tools tool = new Tools();
-            return tool.GetTeamsObject();
+            return tool.GetCircuitsObject();
         }
 
-        // GET: api/Team/5
-        [HttpGet("{team_id}", Name = "GetTeam")]
-        public List<Team> Get(string team_id)
+        // GET: api/Circuit/5
+        [HttpGet("{Circuit_id}", Name = "GetCircuit")]
+        public List<Circuit> Get(string Circuit_id)
         {
             Tools tool = new Tools();
-            return tool.GetTeam(team_id);
+            return tool.GetCircuit(Circuit_id);
         }
 
-        // POST: api/Team
+        // POST: api/Circuit
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT: api/Team/5
+        // PUT: api/Circuit/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {

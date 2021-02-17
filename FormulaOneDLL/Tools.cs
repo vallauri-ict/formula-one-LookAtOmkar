@@ -27,6 +27,8 @@ namespace FormulaOneDLL
 
         public string CONNECTION_STRING { get => connection_string; set => connection_string = value; }
 
+
+        //GET LIST OF STRING
         public List<string> GetCountries()
         {
             List<string> retVal = new List<string>();
@@ -55,6 +57,7 @@ namespace FormulaOneDLL
             return retVal;
         }
 
+        //GET OBJECT 
         public List<Country> GetCountriesObject()
         {
             List<Country> retVal = new List<Country>();
@@ -81,8 +84,138 @@ namespace FormulaOneDLL
             }
             return retVal;
         }
+        public List<Races> GetRacesObject()
+        {
+            List<Races> retVal = new List<Races>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Race";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int Id = Convert.ToInt32(reader.GetString(0));
+                            string name = reader.GetString(1);
+                            string circuit_id = reader.GetString(2);
+                            Console.WriteLine("{0} {1} {2}", Id, name, circuit_id);
+                            retVal.Add(new Races(Id, name, circuit_id));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+        public List<Circuit> GetCircuitsObject()
+        {
+            List<Circuit> retVal = new List<Circuit>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Circuit";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string circuit_code = reader.GetString(0);
+                            string name = reader.GetString(1);
+                            string country = reader.GetString(2);
+                            int _length = Convert.ToInt32(reader.GetString(3));
+                            int laps_number = reader.GetInt32(4);
+                            int turns_number = reader.GetInt32(5);
+                            string first_race_year = reader.GetString(6);
+                            string fastest_lap = reader.GetString(7);
+                            string full_image = reader.GetString(8);
+                            string small_image = reader.GetString(9);
 
-        public List<Country> GetCountry(string isoCode) //restituisce un solo oggetto
+
+                            retVal.Add(new Circuit(circuit_code, name, country, _length, laps_number, turns_number, first_race_year, fastest_lap, full_image, small_image));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+        public List<Driver> GetDriversObject()
+        {
+            List<Driver> retVal = new List<Driver>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Driver";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int driverNumber = reader.GetInt32(0);
+                            string driverName = reader.GetString(1);
+                            string driverSurname = reader.GetString(2);
+                            string teamCode = reader.GetString(3);
+                            string countryCode = reader.GetString(4);
+                            int winNumber = reader.GetInt32(5);
+                            int worldChampionshipsNumber = reader.GetInt32(6);
+                            string img = reader.GetString(7);
+
+                            retVal.Add(new Driver(driverNumber, driverName, driverSurname, teamCode, countryCode, winNumber, worldChampionshipsNumber, img));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+        public List<Team> GetTeamsObject()
+        {
+            List<Team> retVal = new List<Team>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Team";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string teamCode = reader.GetString(0);
+                            string teamFullName = reader.GetString(1);
+                            string teamChief = reader.GetString(2);
+                            string teamPowerUnit = reader.GetString(3);
+                            int teamFirstEntryYear = reader.GetInt32(4);
+                            string teamHQPlace = reader.GetString(5);
+                            string nationCode = reader.GetString(6);
+                            string logo = reader.GetString(7);
+                            string img = reader.GetString(8);
+
+                            retVal.Add(new Team(teamCode, teamFullName, teamChief, teamPowerUnit, teamFirstEntryYear, teamHQPlace, nationCode, logo, img));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+
+
+
+        //restituisce un solo oggetto, in base all' id  richiesto
+        public List<Country> GetCountry(string isoCode) 
         {
             List<Country> retVal = new List<Country>();
             using (SqlConnection dbConn = new SqlConnection())
@@ -107,9 +240,137 @@ namespace FormulaOneDLL
             }
             return retVal;
         }
+        public List<Circuit> GetCircuit(string circuit_Id)
+        {
+            List<Circuit> retVal = new List<Circuit>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Circuit WHERE circuit_code = '"+circuit_Id+"';";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string circuit_code = reader.GetString(0);
+                            string name = reader.GetString(1);
+                            string country = reader.GetString(2);
+                            int _length = Convert.ToInt32(reader.GetString(3));
+                            int laps_number = reader.GetInt32(4);
+                            int turns_number = reader.GetInt32(5);
+                            string first_race_year = reader.GetString(6);
+                            string fastest_lap = reader.GetString(7);
+                            string full_image = reader.GetString(8);
+                            string small_image = reader.GetString(9);
+
+
+                            retVal.Add(new Circuit(circuit_code, name, country, _length, laps_number, turns_number, first_race_year, fastest_lap, full_image, small_image));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+        public List<Races> GetRace(int Race_id)
+        {
+            List<Races> retVal = new List<Races>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Race WHERE Id= "+Race_id+";";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int Id = Convert.ToInt32(reader.GetString(0));
+                            string name = reader.GetString(1);
+                            string circuit_id = reader.GetString(2);
+                            Console.WriteLine("{0} {1} {2}", Id, name, circuit_id);
+                            retVal.Add(new Races(Id, name, circuit_id));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+        public List<Driver> GetDriver(int Driver_id)
+        {
+            List<Driver> retVal = new List<Driver>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Driver WHERE driverNumber = "+Driver_id+";";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int driverNumber = reader.GetInt32(0);
+                            string driverName = reader.GetString(1);
+                            string driverSurname = reader.GetString(2);
+                            string teamCode = reader.GetString(3);
+                            string countryCode = reader.GetString(4);
+                            int winNumber = reader.GetInt32(5);
+                            int worldChampionshipsNumber = reader.GetInt32(6);
+                            string img = reader.GetString(7);
+
+                            retVal.Add(new Driver(driverNumber, driverName, driverSurname, teamCode, countryCode, winNumber, worldChampionshipsNumber, img));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
+        public List<Team> GetTeam(string team_id)
+        {
+            List<Team> retVal = new List<Team>();
+            using (SqlConnection dbConn = new SqlConnection())
+            {
+                dbConn.ConnectionString = CONNECTION_STRING;
+                Console.WriteLine("\n Query data example: ");
+                Console.WriteLine("========================================");
+                string sqlcommand = "SELECT * FROM Team WHERE ='"+team_id+"';";
+                using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
+                {
+                    dbConn.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string teamCode = reader.GetString(0);
+                            string teamFullName = reader.GetString(1);
+                            string teamChief = reader.GetString(2);
+                            string teamPowerUnit = reader.GetString(3);
+                            int teamFirstEntryYear = reader.GetInt32(4);
+                            string teamHQPlace = reader.GetString(5);
+                            string nationCode = reader.GetString(6);
+                            string logo = reader.GetString(7);
+                            string img = reader.GetString(8);
+
+                            retVal.Add(new Team(teamCode, teamFullName, teamChief, teamPowerUnit, teamFirstEntryYear, teamHQPlace, nationCode, logo, img));
+                        }
+                    }
+                }
+            }
+            return retVal;
+        }
 
 
 
+        //GET DATATABLES
         public DataTable GetDataTable(string table)
         {
             datatable = new DataTable(); 
@@ -127,7 +388,6 @@ namespace FormulaOneDLL
 
             return datatable;
         }
-
         public List<string> GetTables()
         {
             using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
@@ -143,6 +403,8 @@ namespace FormulaOneDLL
             }
         }
 
+
+        //EXECUTION COMMANDS
         public void Backup(string WORKINGPATH)
         {
             CONNECTION_STRING = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + WORKINGPATH + @"FormulaOne.mdf;Integrated Security =True";
@@ -204,9 +466,6 @@ namespace FormulaOneDLL
             }
             con.Close();
         }
-
-
-
         public  void ExecuteSqlScripts(string sqlScriptName,string WORKINGPATH)
         {
             var fileContent = File.ReadAllText(WORKINGPATH + sqlScriptName);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FormulaOneDLL
 {
-    class Driver
+    public class Driver
     {
         private int driverNumber;
         private string driverName;
@@ -19,14 +19,23 @@ namespace FormulaOneDLL
 
         public Driver(int driverNumber, string driverName, string driverSurname, string teamCode, string countryCode, int winNumber, int worldChampionshipsNumber, string img)
         {
-            this.driverNumber = driverNumber;
-            this.driverName = driverName;
-            this.driverSurname = driverSurname;
-            this.teamCode = teamCode;
-            this.countryCode = countryCode;
-            this.winNumber = winNumber;
-            this.worldChampionshipsNumber = worldChampionshipsNumber;
-            this.img = img;
+            this.DriverNumber = driverNumber;
+            this.DriverName = driverName;
+            this.DriverSurname = driverSurname;
+            this.TeamCode = teamCode;
+            this.CountryCode = countryCode;
+            this.WinNumber = winNumber;
+            this.WorldChampionshipsNumber = worldChampionshipsNumber;
+            this.Img = img;
         }
+
+        public int DriverNumber { get => driverNumber; set => driverNumber = value; }
+        public string DriverName { get => driverName; set => driverName = value; }
+        public string DriverSurname { get => driverSurname; set => driverSurname = value; }
+        public string TeamCode { get => teamCode; set => teamCode = value; }
+        public string CountryCode { get => countryCode; set => countryCode = value; }
+        public int WinNumber { get => winNumber; set => winNumber = value; }
+        public int WorldChampionshipsNumber { get => worldChampionshipsNumber; set => worldChampionshipsNumber = value; }
+        public string Img { get => img; set => img = value; }
     }
 }

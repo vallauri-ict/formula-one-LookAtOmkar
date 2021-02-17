@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using FormulaOneDLL;
 
 namespace FormulaOneWebServices
 {
@@ -13,24 +14,26 @@ namespace FormulaOneWebServices
     {
         // GET: api/Driver
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Driver> Get()
         {
-            return new string[] { "value1", "value2" };
+            Tools tool = new Tools();
+            return tool.GetDriversObject();
         }
 
         // GET: api/Driver/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{Driver_id}")]
+        public List<Driver> Get(int Driver_id)
         {
-            return "value";
+            Tools tool = new Tools();
+            return tool.GetDriver(Driver_id);
         }
 
         // POST: api/Driver
         [HttpPost]
         public void Post([FromBody] string value)
         {
-        }
 
+        }
         // PUT: api/Driver/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

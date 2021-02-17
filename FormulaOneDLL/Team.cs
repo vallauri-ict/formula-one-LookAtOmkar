@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FormulaOneDLL
 {
-    class Team
+    public class Team
     {
         private string teamCode;
         private string teamFullName;
@@ -20,15 +20,25 @@ namespace FormulaOneDLL
 
         public Team(string teamCode, string teamFullName, string teamChief, string teamPowerUnit, int teamFirstEntryYear, string teamHQPlace, string nationCode, string logo, string img)
         {
-            this.teamCode = teamCode;
-            this.teamFullName = teamFullName;
-            this.teamChief = teamChief;
-            this.teamPowerUnit = teamPowerUnit;
-            this.teamFirstEntryYear = teamFirstEntryYear;
-            this.teamHQPlace = teamHQPlace;
-            this.nationCode = nationCode;
-            this.logo = logo;
-            this.img = img;
+            this.TeamCode = teamCode;
+            this.TeamFullName = teamFullName;
+            this.TeamChief = teamChief;
+            this.TeamPowerUnit = teamPowerUnit;
+            this.TeamFirstEntryYear = teamFirstEntryYear;
+            this.TeamHQPlace = teamHQPlace;
+            this.NationCode = nationCode;
+            this.Logo = logo;
+            this.Img = img;
         }
+
+        public string TeamCode { get => teamCode; set => teamCode = value; }
+        public string TeamFullName { get => teamFullName; set => teamFullName = value; }
+        public string TeamChief { get => teamChief; set => teamChief = value; }
+        public string TeamPowerUnit { get => teamPowerUnit; set => teamPowerUnit = value; }
+        public int TeamFirstEntryYear { get => teamFirstEntryYear; set => teamFirstEntryYear = value; }
+        public string TeamHQPlace { get => teamHQPlace; set => teamHQPlace = value; }
+        public string NationCode { get => nationCode; set => nationCode = value; }
+        public string Logo { get => logo; set => logo = value; }
+        public string Img { get => img; set => img = value; }
     }
 }
