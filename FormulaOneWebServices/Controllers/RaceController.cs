@@ -8,7 +8,7 @@ using FormulaOneDLL;
 
 namespace FormulaOneWebServices.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Race")]
     [ApiController]
     public class RaceController : ControllerBase
     {
@@ -38,6 +38,7 @@ namespace FormulaOneWebServices.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
         // DELETE: api/ApiWithActions/5

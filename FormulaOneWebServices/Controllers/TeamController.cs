@@ -8,7 +8,7 @@ using FormulaOneDLL;
 
 namespace FormulaOneWebServices.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Team")]
     [ApiController]
     public class TeamController : ControllerBase
     {
@@ -27,6 +27,15 @@ namespace FormulaOneWebServices.Controllers
             Tools tool = new Tools();
             return tool.GetTeam(team_id);
         }
+
+        [HttpGet("{param}", Name = "GetDto")]
+        public Team GetDTO(string param)
+        {
+            Tools tool = new Tools();
+            
+            return;
+        }
+
 
         // POST: api/Team
         [HttpPost]

@@ -100,7 +100,7 @@ namespace FormulaOneDLL
                     {
                         while (reader.Read())
                         {
-                            int Id = Convert.ToInt32(reader.GetString(0));
+                            int Id =reader.GetInt32(0);
                             string name = reader.GetString(1);
                             string circuit_id = reader.GetString(2);
                             Console.WriteLine("{0} {1} {2}", Id, name, circuit_id);
@@ -248,7 +248,7 @@ namespace FormulaOneDLL
                 dbConn.ConnectionString = CONNECTION_STRING;
                 Console.WriteLine("\n Query data example: ");
                 Console.WriteLine("========================================");
-                string sqlcommand = "SELECT * FROM Circuit WHERE circuit_code = '"+circuit_Id+"';";
+                string sqlcommand = "SELECT * FROM Circuit WHERE Circuit.circuit_code = '"+circuit_Id+"';";
                 using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
                 {
                     dbConn.Open();
@@ -283,7 +283,7 @@ namespace FormulaOneDLL
                 dbConn.ConnectionString = CONNECTION_STRING;
                 Console.WriteLine("\n Query data example: ");
                 Console.WriteLine("========================================");
-                string sqlcommand = "SELECT * FROM Race WHERE Id= "+Race_id+";";
+                string sqlcommand = "SELECT * FROM Race WHERE Race.Id= "+Race_id+";";
                 using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
                 {
                     dbConn.Open();
@@ -291,7 +291,7 @@ namespace FormulaOneDLL
                     {
                         while (reader.Read())
                         {
-                            int Id = Convert.ToInt32(reader.GetString(0));
+                            int Id = reader.GetInt32(0);
                             string name = reader.GetString(1);
                             string circuit_id = reader.GetString(2);
                             Console.WriteLine("{0} {1} {2}", Id, name, circuit_id);
@@ -310,7 +310,7 @@ namespace FormulaOneDLL
                 dbConn.ConnectionString = CONNECTION_STRING;
                 Console.WriteLine("\n Query data example: ");
                 Console.WriteLine("========================================");
-                string sqlcommand = "SELECT * FROM Driver WHERE driverNumber = "+Driver_id+";";
+                string sqlcommand = "SELECT * FROM Driver WHERE Driver.driverNumber = "+Driver_id+";";
                 using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
                 {
                     dbConn.Open();
@@ -342,7 +342,7 @@ namespace FormulaOneDLL
                 dbConn.ConnectionString = CONNECTION_STRING;
                 Console.WriteLine("\n Query data example: ");
                 Console.WriteLine("========================================");
-                string sqlcommand = "SELECT * FROM Team WHERE ='"+team_id+"';";
+                string sqlcommand = "SELECT * FROM Team WHERE Team.teamCode  ='"+team_id+"';";
                 using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
                 {
                     dbConn.Open();
@@ -367,6 +367,10 @@ namespace FormulaOneDLL
             }
             return retVal;
         }
+
+
+        //Restituisce un solo oggetto, in base ad un parametro,diverso dall'id, richiesto
+        
 
 
 

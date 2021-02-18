@@ -8,7 +8,7 @@ using FormulaOneDLL;
 
 namespace FormulaOneWebServices.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Circuit")]
     [ApiController]
     public class CircuitController : ControllerBase
     {

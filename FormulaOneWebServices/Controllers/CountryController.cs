@@ -9,7 +9,7 @@ using FormulaOneDLL;
 
 namespace FormulaOneWebServices
 {
-    [Route("api/[controller]")]
+    [Route("api/Country")]
     [ApiController]
     public class CountryController : ControllerBase
     {
@@ -29,6 +29,8 @@ namespace FormulaOneWebServices
             Tools db = new Tools();
             return db.GetCountry(isoCode);
         }
+
+ 
 
         // POST: api/Country
         [HttpPost]

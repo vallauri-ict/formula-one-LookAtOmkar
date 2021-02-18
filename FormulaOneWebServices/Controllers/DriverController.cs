@@ -8,7 +8,7 @@ using FormulaOneDLL;
 
 namespace FormulaOneWebServices
 {
-    [Route("api/[controller]")]
+    [Route("api/Driver")]
     [ApiController]
     public class DriverController : ControllerBase
     {
