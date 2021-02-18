@@ -21,3 +21,4 @@
 
 **This is our Windows Form in develop. There is an option to select a table, to visualize in this DataGridView, as you can see. This is not done yet,  there are lots of stuff to do dealing with the database,images, details.... This is just a good portion to what we have done till now**
 
+**We added new thing in this project: FormulaOne WebServices; Basically it does server side.where we send an api request and it response us with some data, just like using $ajax in Tpsit;  It's on develop, like others**
