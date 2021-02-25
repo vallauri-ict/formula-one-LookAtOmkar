@@ -28,8 +28,8 @@ namespace FormulaOneWebServices
             return tool.GetDriver(Driver_id,""); //se ho solo id come parametro, faccio che imposto il parametro surname a ""
         }
 
-        //GET:  api/Driver/COGNOME
-        [HttpGet("{Driver_Surname}")]
+        //GET:  api/Driver/Detail/COGNOME
+        [HttpGet("details/{Driver_Surname}")] //details/ ---> per distinguere dalla chiamata precedente
         public List<Driver> Get(string Driver_Surname)
         {
             Tools tool = new Tools();

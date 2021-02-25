@@ -353,9 +353,9 @@ namespace FormulaOneDLL
                 if((team_id != "")&&(team_name == ""))
                     sqlcommand = "SELECT * FROM Team WHERE Team.teamCode  ='"+team_id+"';";
                 else if((team_id == "")&&(team_name !=""))
-                    sqlcommand = "SELECT * FROM Team WHERE Team.teamFullName  ='" + team_name + "';";
+                    sqlcommand = "SELECT * FROM Team WHERE Team.teamPowerUnit  ='" + team_name + "' OR Team.teamFullName LIKE '"+team_name+"';";
                 else
-                    sqlcommand = "SELECT * FROM Team WHERE Team.teamCode  ='" + team_id + "' AND Team.teamFullName = '" + team_name + "'; ";
+                    sqlcommand = "SELECT * FROM Team WHERE Team.teamCode  ='" + team_id + "' AND Team.teamPowerUnit  ='" + team_name + "' OR Team.teamFullName LIKE '" + team_name + "';";
 
                 using (SqlCommand command = new SqlCommand(sqlcommand, dbConn))
                 {
