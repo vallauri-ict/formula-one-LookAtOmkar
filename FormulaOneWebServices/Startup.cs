@@ -33,7 +33,12 @@ namespace FormulaOneWebServices
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("-------FORMULA ONE-------");
+                    await context.Response.WriteAsync("--------------------------------------------------------------FORMULA ONE-----------------------------------------------------------------");
+					await context.Response.WriteAsync("................welcome to our website...............");
+					await context.Response.WriteAsync("search on Url bar whatever you want , like driver,teams,results....");
+					await context.Response.WriteAsync("if you want to search like one team,one driver, or one result, you have to put on url bar , the specific code that determins the result you want. you have to link in this way: api/../{code}");
+					await context.Response.WriteAsync("if you want to search something specific, like surname, you have to link in this way: api/../details/....;  ");
+					await context.Response.WriteAsync("It's still in developing, so not every search you do, will responde correctly, or won't respond");
                 });
 
                
