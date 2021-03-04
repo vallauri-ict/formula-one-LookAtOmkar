@@ -28,7 +28,7 @@ namespace FormulaOneWebServices.Controllers
             return tool.GetTeam(team_id,"");
         }
 
-        // GET: api/Team/Ferrari
+        // GET: api/Team/details/Ferrari
         [HttpGet("details/{Team_name}")]
         public List<Team> Get(string Team_name,int extra_param = -1) //extra_param serviva solo per poter distinguere dalla richiamata API precedente
         {

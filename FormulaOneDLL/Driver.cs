@@ -33,9 +33,18 @@ namespace FormulaOneDLL
         public string DriverName { get => driverName; set => driverName = value; }
         public string DriverSurname { get => driverSurname; set => driverSurname = value; }
         public string TeamCode { get => teamCode; set => teamCode = value; }
+
         public string CountryCode { get => countryCode; set => countryCode = value; }
+        public string CountryFlag
+        {
+            get
+            {
+                return String.Format("https://www.countryflags.io/{0}/shiny/64.png",CountryCode.ToLower());
+            }
+        }
         public int WinNumber { get => winNumber; set => winNumber = value; }
         public int WorldChampionshipsNumber { get => worldChampionshipsNumber; set => worldChampionshipsNumber = value; }
         public string Img { get => img; set => img = value; }
+      
     }
 }
