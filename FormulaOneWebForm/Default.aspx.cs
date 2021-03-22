@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using FormulaOneDLL;
+using System.Net;
+using System.IO;
 
 namespace FormulaOneWebForm
 {
@@ -30,6 +32,34 @@ namespace FormulaOneWebForm
             database = DropDownList.Text;
             gridViewData.DataSource = dbTools.GetDataTable(database);
             gridViewData.DataBind();
+        }
+
+        protected void Esegui(object sender,EventArgs e)
+        {
+            GetCountry();
+        }
+
+        private void GetCountry(string isoCode = "")
+        {
+           HttpWebRequest request = WebRequest.Create("https://localhost:62220/api/Country/"+isoCode+ "") as HttpWebRequest;
+           string ApiResponse = "";
+
+            try
+            {
+                using(HttpWebResponse response = request.GetResponse() as HttpWebResponse)
+                {
+                    StreamReader sr = new StreamReader(response.GetResponseStream());
+                    ApiResponse = sr.ReadToEnd();
+                    List<Country> countries = Newtonsoft.Json.JsonConvert.DeserializeObject <List<Country>>(ApiResponse);
+                    gridViewData.DataSource = countries;
+                    gridViewData.DataBind();   
+                }
+            }
+            catch(Exception err)
+            {
+                Console.WriteLine("ERROR : "+err.Message);
+                throw;
+            }
         }
     }
 }

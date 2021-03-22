@@ -14,7 +14,7 @@
         </nav>
         <div>
             <br />
-            <asp:Label runat="server" Text="Scegli una tabella da visualizzare" />
+            <asp:Label runat="server" Text = "Scegli una tabella da visualizzare" />
             <br />
         </div>
 
@@ -33,6 +33,8 @@
                 <SortedDescendingHeaderStyle BackColor="#820000" />
             </asp:GridView>
         </div>
+  
+        <button ID="prova" runat="server" style="margin:10px;"   onclick="Esegui">GET COUNTRY </button>
     </form>
 </body>
 </html>
